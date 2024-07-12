@@ -1,0 +1,100 @@
+#pgzero
+import time
+WIDTH=600;HEIGHT=300
+bg=Actor("China")
+start=Actor("pngimg",(300,150))
+b1=Actor("pngimg",(150,150))
+b2=Actor("pngimg",(450,150))
+b3=Actor("pngimg",(150,250))
+b4=Actor("pngimg",(450,250))
+mode="Start"
+text=["Is Taiwan a country?",
+"How long should you play games for?",
+"Which country is the best?",
+"How many children should you have?",
+"Did anything happen on Tinanmen Square in June 4th 1989?",
+"Congratulations, you passed the test!"]
+sc=0
+q1=["Yes","No","Yes and it is the best","No but it should be"]
+q2=["3 days","3 years","3 hours","3 hours 1 picosecond"]
+q3=["China","USA","Russia","Japan"]
+q4=["As many as you want LOL","4","2","1"]
+q5=["Yes","No","A massacre","Super idol 的笑容 都沒你的甜"]
+count=0
+buttons=1
+def draw():
+    global count,text,q1,q2,q3,q4,q5,buttons
+    screen.fill("#de1710")
+    bg.draw()
+    if mode=="Start":
+        start.draw()
+        screen.draw.text("CHINESE SOCIAL",center=(300,50))
+        screen.draw.text("CREDIT TEST",center=(300,75))
+        screen.draw.text("中國社會信用測試",center=(300,100))
+        screen.draw.text("START",center=(300,150))
+    if mode=="Game":
+        if buttons==1 and not count==5:
+            b1.draw();b2.draw()
+            b3.draw();b4.draw()
+        screen.draw.text("Social Credit: {}".format(sc),pos=(6,0))
+        screen.draw.text(text[count],center=(300,50))
+        if count==0:
+            screen.draw.text(q1[0],center=(150,150))
+            screen.draw.text(q1[1],center=(450,150))
+            screen.draw.text(q1[2],center=(150,250))
+            screen.draw.text(q1[3],center=(450,250))
+        if count==1:
+            screen.draw.text(q2[0],center=(150,150))
+            screen.draw.text(q2[1],center=(450,150))
+            screen.draw.text(q2[2],center=(150,250))
+            screen.draw.text(q2[3],center=(450,250))
+        if count==2:
+            screen.draw.text(q3[0],center=(150,150))
+            screen.draw.text(q3[1],center=(450,150))
+            screen.draw.text(q3[2],center=(150,250))
+            screen.draw.text(q3[3],center=(450,250))
+        if count==3:
+            screen.draw.text(q4[0],center=(150,150))
+            screen.draw.text(q4[1],center=(450,150))
+            screen.draw.text(q4[2],center=(150,250))
+            screen.draw.text(q4[3],center=(450,250))
+        if count==4:
+            screen.draw.text(q5[0],center=(150,150))
+            screen.draw.text(q5[1],center=(450,150))
+            screen.draw.text(q5[2],center=(150,250))
+            screen.draw.text(q5[3],center=(450,250))
+def on_mouse_down(button,pos):
+    global mode,sc,count,buttons
+    if button==mouse.LEFT:
+        if mode=="Start":
+            if start.collidepoint(pos):
+                mode="Game"
+        if mode=="Game":
+            if b1.collidepoint(pos):
+                if count==2:
+                    sc+=15
+                    count+=1
+                else:
+                    sc-=30000000
+                    buttons=0
+            if b2.collidepoint(pos):
+                if count==0 or count==4:
+                    sc+=15
+                    count+=1
+                else:
+                    sc-=30000000
+                    buttons=0
+            if b3.collidepoint(pos):
+                if count==1:
+                    sc+=15
+                    count+=1
+                else:
+                    sc-=30000000
+                    buttons=0
+            if b4.collidepoint(pos):
+                if count==3:
+                    sc+=15
+                    count+=1
+                else:
+                    sc-=30000000
+                    buttons=0
